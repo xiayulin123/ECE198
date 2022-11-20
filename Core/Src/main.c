@@ -109,12 +109,6 @@ int main(void)
 			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
 			  previous = 0;
 		  }
-	  }else {
-		  if (previous == 0){
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-		  }else{
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-		  }
 	  }
 
     /* USER CODE END WHILE */
