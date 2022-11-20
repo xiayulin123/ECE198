@@ -296,20 +296,32 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-uint8_t Detect_People(){
+uint32_t Read_ADC(){
 	HAL_ADC_Start(&hadc1);
 	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
 	uint32_t sample1 = HAL_ADC_GetValue(&hadc1);
 	HAL_ADC_Stop(&hadc1);
+	return sample1;
+}
+
+uint8_t Detect_People(){
+	uint32_t sample1 = Read_ADC();
+	uint32_t sample2 = 0;
+
+	while(sample1 < 1000 || sample1 > 4000){
+		sample1 = Read_ADC();
+		HAL_Delay(100);
+	}
 
 	HAL_Delay(3000);
 
-	HAL_ADC_Start(&hadc1);
-	HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
-	uint32_t sample2 = HAL_ADC_GetValue(&hadc1);
-	HAL_ADC_Stop(&hadc1);
+	sample2 = Read_ADC();
+	while(sample2 < 1000 || sample2 > 4000){
+		sample2 = Read_ADC();
+		HAL_Delay(100);
+	}
 
-	if ((sample2 - sample1) > 300 || (sample2-sample1) < -300){
+	if (((sample2 - sample1) > 900) || ((sample2-sample1) < -900)){
 		return 1;
 	}
 	return 0;
