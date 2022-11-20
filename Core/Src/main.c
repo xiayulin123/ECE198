@@ -321,8 +321,14 @@ uint8_t Detect_People(){
 		HAL_Delay(100);
 	}
 
-	if (((sample2 - sample1) > 900) || ((sample2-sample1) < -900)){
-		return 1;
+	if(sample1 > sample2){
+		if ((sample1 - sample2) > 900){
+			return 1;
+		}
+	}else{
+		if ((sample2 - sample1) > 900){
+			return 1;
+		}
 	}
 	return 0;
 }
