@@ -305,18 +305,17 @@ uint32_t Read_ADC(){
 }
 
 uint8_t Detect_People(){
-	uint32_t sample1 = Read_ADC();
+	uint32_t sample1 = 0;
 	uint32_t sample2 = 0;
 
-	while(sample1 < 1000 || sample1 > 4000){
+	while(sample1 < 1000 || sample1 > 4500){
 		sample1 = Read_ADC();
 		HAL_Delay(100);
 	}
 
-	HAL_Delay(3000);
+	//HAL_Delay(3000);
 
-	sample2 = Read_ADC();
-	while(sample2 < 1000 || sample2 > 4000){
+	while(sample2 < 1000 || sample2 > 4500){
 		sample2 = Read_ADC();
 		HAL_Delay(100);
 	}
